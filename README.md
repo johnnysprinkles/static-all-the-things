@@ -1,38 +1,32 @@
-# create-svelte
+# What is this
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+This is an exploration on the idea of static SSR and a complete
+discontinuous break between build time and runtime. I have an
+off-the-shelf SvelteKit app that I added a couple "airplane" routes
+to, one is a parameterless list view and one is detail view that
+uses an ID from route params. Dealing with dynamic routes in a
+static SSR world is what this is all about.
 
-## Creating a project
+Just to be extra sure they're separated I'm using Python for the
+runtime part.
 
-If you're seeing this, you've probably already done this step. Congrats!
+# Schedule of ports
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+* 3000: SvelteKit dev server in `/sv`
+* 3001: A simple Python API server that gives you JSON on a 500ms delay, in `/api`
+* 3002: A production-like Python web server that serves the statically
+  rendered /build directory of SvelteKit, in `/web`
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+# Startup
 
-> Note: the `@next` is temporary
+The SvelteKit part is obvious, just `npm i` then `npm run dev`, then
+`npm run build` to populate the `/build` folder which the Python web
+server looks at to see everything running integrated.
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+For the Python apps, just be sure you're on Python 3.9 (`python -V`)
+and run them with `python app.py`. The api one has dependencies on
+Flask so you want a `pip install -r requirements.txt` (possibly should
+be done in a venv but not sure if that's necessary), then 
+`python app.py` to start up. I *love* Python the language but do not
+love the package system. Wheel, pip, venv, virtualenv, who really
+understands that stuff anyway?
