@@ -11,6 +11,7 @@ const config = {
       crawl: false,
       pages: [
         '*',
+        '/airplane/XXX',
       ],
     },
 	},

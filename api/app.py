@@ -16,7 +16,6 @@ def list():
 @app.route("/detail/<id>")
 def get(id):
     time.sleep(ARTIFICIAL_DELAY)
-    id = int(id)
     matches = [x for x in data if x["id"] == id]
     if len(matches) > 0:
         return matches[0]

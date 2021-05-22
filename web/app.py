@@ -1,11 +1,17 @@
 from flask import Flask, jsonify, request, Response
 from simple_load import simple_load
+from load_from_route import load_from_route
 
 app = Flask(__name__)
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
+
+    body = load_from_route(request.path)
+    if body:
+        return body
+
     body, mime = simple_load(request.path)
     headers = {}
 
