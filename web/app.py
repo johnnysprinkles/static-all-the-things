@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, Response
 from simple_load import simple_load
 from load_from_route import load_from_route
+from manifest_load import manifest_load
 
 app = Flask(__name__)
 
@@ -8,7 +9,7 @@ app = Flask(__name__)
 @app.route('/<path:path>')
 def catch_all(path):
 
-    body = load_from_route(request.path)
+    body = manifest_load(request.path)
     if body:
         return body
 
