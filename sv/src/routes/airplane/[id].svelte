@@ -6,8 +6,7 @@
   let item = null;
 
   onMount(async () => {
-    let m = window.location.pathname.match(/^\/airplane\/(\d+)$/);
-    const res = await fetch(`http://localhost:3001/detail/${m[1]}`);
+    const res = await fetch(`http://localhost:3001/detail/${$page.params.id}`);
     item = await res.json();
     loading = false
   });
