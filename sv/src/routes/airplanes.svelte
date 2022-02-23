@@ -24,7 +24,7 @@
     {#each items as item}
       <div>
         <h3>
-          <a href={`/airplane/${item.id}`}>{item.manufacturer} {item.name}</a>
+          <a href={`/airplane?id=${item.id}`}>{item.manufacturer} {item.name}</a>
         </h3>
       </div>
     {/each}
