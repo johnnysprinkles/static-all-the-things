@@ -1,14 +1,26 @@
+<script context="module">
+ export async function load({ url }) {
+    try {
+      return { props: { itemId : url.searchParams.get('id') } };
+    } catch (e) {
+      return { props: { itemId: '' } };
+    }
+  }
+</script>
 <script>
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
 
+  export let itemId = null;
   let loading = true;
   let item = null;
 
   onMount(async () => {
-    const res = await fetch(`http://localhost:3001/detail/${$page.params.id}`);
-    item = await res.json();
-    loading = false
+    if(itemId){
+      const res = await fetch(`http://localhost:3001/detail/${itemId}`);
+      item = await res.json();
+      loading = false
+    }
   });
 
 </script>
